@@ -29,6 +29,8 @@ def create_data():
             print("Title cannot be empty. Please try again.")
 
     para = input("Enter paragraph text: ")
+    paraLinkWord = input("Enter the paragraph word to add a link to: ")
+    paraLink = input(f"Enter a link URL for {paraLinkWord}: ")
     highlightWords = input("Type the words you want highlighted? (or press enter): ")
 
     new_data = {
@@ -38,6 +40,8 @@ def create_data():
         'title': title,
         'highlightWords': highlightWords,
         'para': para,
+        'paraLinkWord': paraLinkWord,
+        'paraLink': paraLink
     }
 
     return new_data
