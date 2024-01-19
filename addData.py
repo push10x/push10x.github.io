@@ -15,7 +15,7 @@ def create_data():
 
     # Check if the user wants to exit
     if date.lower() == 'exit':
-        return {'date': 'exit', 'link': ''}
+        return
 
     link = input("Enter a link URL: ")
     linkText = input("Enter the linkText: ")
