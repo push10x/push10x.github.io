@@ -1,0 +1,75 @@
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:500,900i);
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* body{
+font-size: 19px;
+line-height: 28px;
+letter-spacing: 0.1px;
+color: #1a1a1a;
+} */
+
+body {
+  background: #fffff9;
+  font: 22px/1.65 'Droid Serif', serif;
+  color: #1a1a1a;
+}
+
+a{
+  color:#2985fc;
+  display: inline-block;
+}
+.wrapper {
+  max-width: 600px;
+  width: 95%;
+  margin: auto;
+}
+
+h1{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  margin: 10px 20px 10px 0;
+  line-height: .8;
+  font-size: 130px;
+  text-align: center;
+}
+
+/* data */
+div {
+  padding: 3rem 1rem;
+}
+
+/* title */
+h2{
+  line-height: 1.25;
+  margin-bottom: 5px;
+}
+
+/* date */
+h3{
+  display: inline-block;
+  background: #eee;
+  padding: 0.25em;
+  color: #123;
+  font: 14px/1 monospace;
+  margin-bottom: 8px;
+}
+
+/* red borders */
+span {
+  color: #ee4035;
+  /* margin: 15px; */
+  /* padding: 5px; */
+  /* box-shadow: 10px -10px 0px red, -10px 10px 0px red; */
+}
+
+
+@media screen and (min-width: 768px){
+  div {
+   padding: 5rem 3rem;
+  }
+}
