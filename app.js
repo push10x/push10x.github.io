@@ -1,68 +1,87 @@
-document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function () {
+      const displayElement = document.getElementById("resultsContainer");
+      const searchInput = document.getElementById('searchInput');
 
-  const displayElement = document.getElementById("data");
-  
-  fetch('data.json')
-    .then(response => response.json())
-    .then(data => {
+      fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+          const displayResults = (results) => {
+            displayElement.innerHTML = '';
 
-      data.forEach(item => {
-        const {date, link, linkText, title, para, paraLink, paraLinkWord, highlightWords} = item
+            if (results.length === 0) {
+              displayElement.innerHTML = '<p>No results found.</p>';
+            } else {
+              results.forEach(result => {
+                const { date, link, linkText, title, para, paraLink, paraLinkWord, highlightWords } = result;
+                const dateHtml = date ? `<h3>${date}</h3>` : '';
+                const titleHtml = title ? title : '';
 
-        const dateHtml = date ? `<h3>${date}</h3>` : '';
-        const titleHtml = title ? title : '';
-        
-        function addHttps(x) {
-          if (!x.includes("http://") && !x.includes("https://")) {
-            return `https://${x}`;
-          } else {
-            return x.replace(/^http:\/\//, 'https://');
-          }
-        }
+                function addHttps(x) {
+                  if (!x.includes("http://") && !x.includes("https://")) {
+                    return `https://${x}`;
+                  } else {
+                    return x.replace(/^http:\/\//, 'https://');
+                  }
+                }
 
-        const linkUrlHtml = link ? addHttps(link) : '';
-        const linkTextHtml = linkText ? linkText : '';
-        const truncatedLinkText = linkTextHtml.length > 20 ? linkTextHtml.slice(0, 20) + '...' : linkTextHtml;
+                const linkUrlHtml = link ? addHttps(link) : '';
+                const linkTextHtml = linkText ? linkText : '';
+                const truncatedLinkText = linkTextHtml.length > 20 ? linkTextHtml.slice(0, 20) + '...' : linkTextHtml;
 
-        const paraHtml = para ? para : '';
-        const paraLinkUrlHtml = paraLink ? addHttps(paraLink) : '';
-        const paraLinkWordHtml = paraLinkWord ? paraLinkWord : '';
-        const highlightWordsHtml = highlightWords ? highlightWords : '';
-      
-        let paraSpan = paraHtml;
+                const paraHtml = para ? para : '';
+                const paraLinkUrlHtml = paraLink ? addHttps(paraLink) : '';
+                const paraLinkWordHtml = paraLinkWord ? paraLinkWord : '';
+                const highlightWordsHtml = highlightWords ? highlightWords : '';
 
-        if (paraHtml && (highlightWordsHtml || paraLinkWordHtml)) {
-          const wordsArray = (highlightWordsHtml + ' ' + paraLinkWordHtml).split(/\s+/);  // Split the words into an array
-          wordsArray.forEach(word => {
-            if (word && paraSpan.includes(word)) {
-              // Add link to word
-              if (word === paraLinkWordHtml) {
-                const ctaHtml = ` <a href="${paraLinkUrlHtml}" target="_blank">${word}</a>`;
-                paraSpan = paraSpan.replace(new RegExp(word, 'ig'), ctaHtml);
-              } else {
-                // Highlight words
-                const ctaHtml = ` <span>${word}</span>`;
-                paraSpan = paraSpan.replace(new RegExp(word, 'ig'), ctaHtml);  // 'ig' for case-insensitive global match
-              }
+                let paraSpan = paraHtml;
+
+                if (paraHtml && (highlightWordsHtml || paraLinkWordHtml)) {
+                  const wordsArray = (highlightWordsHtml + ' ' + paraLinkWordHtml).split(/\s+/);
+                  wordsArray.forEach(word => {
+                    if (word && paraSpan.includes(word)) {
+                      if (word === paraLinkWordHtml) {
+                        const ctaHtml = ` <a href="${paraLinkUrlHtml}" target="_blank">${word}</a>`;
+                        paraSpan = paraSpan.replace(new RegExp(word, 'ig'), ctaHtml);
+                      } else {
+                        const ctaHtml = ` <span>${word}</span>`;
+                        paraSpan = paraSpan.replace(new RegExp(word, 'ig'), ctaHtml);
+                      }
+                    }
+                  });
+                }
+
+                paraSpan = paraSpan || paraHtml;
+
+                displayElement.innerHTML += `<div class="data">
+                  ${dateHtml}
+                  <a href="${linkUrlHtml}" target="_blank">${truncatedLinkText}</a>
+                  <h2>${titleHtml}</h2>
+                  <p>${paraSpan}</p>
+                </div>`;
+              });
             }
+          };
+
+          // Initial display of all data
+          displayResults(data);
+
+          // Add event listener for the search input
+          searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const results = data.filter(item => {
+              return (
+                item.date.toLowerCase().includes(searchTerm) ||
+                item.link.toLowerCase().includes(searchTerm) ||
+                item.linkText.toLowerCase().includes(searchTerm) ||
+                item.title.toLowerCase().includes(searchTerm) ||
+                item.para.toLowerCase().includes(searchTerm) ||
+                item.paraLink.toLowerCase().includes(searchTerm) ||
+                item.paraLinkWord.toLowerCase().includes(searchTerm) ||
+                item.highlightWords.toLowerCase().includes(searchTerm)
+              );
+            });
+            displayResults(results);
           });
-        }
-
-        paraSpan = paraSpan || paraHtml;
-
-
-        displayElement.innerHTML += `<div>
-          ${dateHtml}
-          <a href="${linkUrlHtml}" target="_blank">${truncatedLinkText}</a>
-          <h2>${titleHtml}</h2>
-          <p>${paraSpan}</p>
-        </div>`;
-      });
-    })
-    .catch(error => console.error('Error fetching data:', error));
-});
-
-
-
-
-
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    });

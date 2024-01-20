@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 import subprocess
@@ -5,36 +6,47 @@ import subprocess
 filename = 'data.json'
 
 def create_data():
-    while True:
-        
-        date = input("Enter date (maximum 10 characters): ")
+    # To add a custom date to each post
+    # while True:
+    #   date = input("Enter date (numeric values i.e 01.01.24) or press Enter for today's date: \n")
 
-        if len(date) <= 10:
-            break
-        else:
-            print("Date must be 10 characters or fewer. Please try again.")
+    #   if date.strip():
+    #       if len(date) <= 10:
+    #           break
+    #       else:
+    #           print("Date must be 10 characters or fewer. Please try again.")
+    #   else:
+    #       # If the user didn't input a date, set it to today's date
+    #       date = datetime.datetime.now().strftime("%d.%m.%Y")
+    #       break
 
-    link = input("Enter a link URL: ")
-    linkText = input("Enter the linkText: ")
+    # REPLACES THE ABOVE
+    # Add todays date automatically
+    date = datetime.datetime.now().strftime("%d.%m.%Y")
 
     # Make the title mandatory
     while True:
         title = input("Enter a title: ")
-        if title.strip():  # Check if the title is not empty or only contains whitespace
+        if title.strip(): # Check title is not empty/only contains whitespace
             break
         else:
             print("\nTitle cannot be empty. Please try again.")
 
+    link = input("Enter a link URL: ")
+    linkText = input("Enter the linkText: ")
+
     para = input("Enter paragraph text: ")
+    
     paraLinkWord = input("Enter the paragraph word to add a link to: ")
     paraLink = input(f"Enter a link URL for {paraLinkWord}: ")
+    
     highlightWords = input("Type the words you want highlighted? (or press enter): ")
 
     new_data = {
+        'title': title,
         'date': date,
         'link': link,
         'linkText': linkText,
-        'title': title,
         'highlightWords': highlightWords,
         'para': para,
         'paraLinkWord': paraLinkWord,
@@ -48,7 +60,7 @@ def load_existing_data(filename):
     if os.path.exists(filename):
         with open(filename, 'r') as file:
             existing_data = json.load(file)
-    return existing_data[::-1] # Reverse the order when loading
+    return existing_data
 
 def save_to_json(data, filename=filename):
     existing_data = load_existing_data(filename)
@@ -71,14 +83,12 @@ if __name__ == "__main__":
         print(f"\nAll data has been saved to the json file {filename}.\n")
 
         # Prompt user for Git operations
-        git_prompt = input("Would you like to add, commit, and push to the Git repository? (y/n): \n")
+        git_prompt = input("Would you like to add, commit, and push to the Git repository? \n(Press y or enter to quit.): \n")
 
         if git_prompt.lower() == 'y':
             commit_message = input("Enter a commit message: ")
             git_add_commit_push(commit_message)
-            print("\nGit operations completed successfully.")
-        elif git_prompt.lower() == 'n':
-            print("\nExiting the program without Git operations.")
+            print("\nGit operations completed successfully. \n\nGreat job!")
         else:
-            print("Invalid input. Exiting the program without Git operations.")
+            print("\nExiting the program without Git operations. \n\nSee you next time!")
         break

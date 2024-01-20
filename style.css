@@ -1,18 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
-@import url(https://fonts.googleapis.com/css?family=Montserrat:500,900i);
-* {
-  margin: 0;
-  padding: 0;
-}
-
-/* body{
-font-size: 19px;
-line-height: 28px;
-letter-spacing: 0.1px;
-color: #1a1a1a;
-} */
 
 body {
+  overflow-x: hidden;
   background: #fffff9;
   font: 22px/1.65 'Droid Serif', serif;
   color: #1a1a1a;
@@ -22,28 +11,42 @@ a{
   color:#2985fc;
   display: inline-block;
 }
-.wrapper {
+
+#resultsContainer, .wrapper, .data {
+  box-sizing: border-box; /* Include padding and borders in the total width */
   max-width: 600px;
   width: 95%;
   margin: auto;
+  padding: 2.5rem 1rem;
 }
 
 h1{
-  font-family: 'Montserrat', sans-serif;
+  font-family: monospace;
   font-weight: 900;
   font-style: italic;
-  margin: 10px 20px 10px 0;
-  line-height: .8;
-  font-size: 130px;
+  margin: 0px 20px 0px 0px;
+  line-height: 1;
+  font-size: 150px;
   text-align: center;
 }
-
-/* data */
-div {
-  padding: 3rem 1rem;
+.center{
+  display: flex;
+  justify-content: center;
 }
-
-/* title */
+#searchInput{
+  max-width: 400px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 10px;
+  border: 0;
+  font: 22px/1.65 'Droid Serif', serif;
+  background: #111;
+  color: white;
+}
+#searchInput::placeholder{
+  opacity: .8;
+}
+/* data title */
 h2{
   line-height: 1.25;
   margin-bottom: 5px;
@@ -59,7 +62,7 @@ h3{
   margin-bottom: 8px;
 }
 
-/* red borders */
+/* highlight data body text */
 span {
   color: #ee4035;
   /* margin: 15px; */
@@ -69,7 +72,7 @@ span {
 
 
 @media screen and (min-width: 768px){
-  div {
-   padding: 5rem 3rem;
+  #resultsContainer, .wrapper, .data {
+   padding: 4rem 3rem;
   }
 }
