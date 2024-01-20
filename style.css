@@ -167,6 +167,10 @@ span.highlight {
   color: #F2EEE2;
 }
 
+#theme{
+  width: fit-content;
+  cursor: pointer;
+}
 .theme-sun-svg{
   width: 20px;
   height: 20px;
