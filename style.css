@@ -6,43 +6,46 @@ html{
 
 body {
   overflow-x: hidden;
-  background: #fffff9;
+  background: #f64056;
   font: 22px/1.65 'Droid Serif', serif;
   color: #1a1a1a;
 }
-
 a{
   color:#2985fc;
   display: inline-block;
 }
-
-#resultsContainer, .wrapper, .data {
-  box-sizing: border-box; /* Include padding and borders in the total width */
-  max-width: 600px;
-  width: 95%;
-  margin: auto;
-  padding: 2.5rem 1rem;
+a:not(.data p a){
+  font-style: italic!important;
+  color: white;
+  font: 18px/1 monospace;
 }
 
 h1{
   font-family: monospace;
   font-weight: 900;
   font-style: italic;
-  margin: 0px 20px 0px 0px;
+  margin: 0px 20px -10px 0px;
   line-height: 1;
   font-size: 150px;
   text-align: center;
+  color: #f64056;
+  text-shadow: -1px -1px 1px #fff, 1px -1px 1px #fff, -1px 1px 1px #fff, 1px 1px 1px #fff;
 }
+
+
+/* search input container */
 .center{
   display: flex;
   justify-content: center;
 }
+
 #searchInput{
   max-width: 400px;
   width: 90%;
   margin: 0 auto;
   padding: 10px;
   border: 0;
+  outline: 10px #ee403555 dashed;
   font: 22px/1.65 'Droid Serif', serif;
   background: #111;
   color: white;
@@ -50,10 +53,36 @@ h1{
 #searchInput::placeholder{
   opacity: .8;
 }
+.wrapper, #resultsContainer {
+  box-sizing: border-box; /* Include padding and borders in the total width */
+  max-width: 600px;
+  width: 100%;
+  margin: auto;
+  /* padding: 2.5rem 1rem; */
+}
+
+/* data div */
+.data{
+  background: rgba(255, 0, 0, .1);
+  margin: 10px auto;
+  border-radius: 4px;
+  padding: 40px;
+  max-width: 350px;
+  height: fit-content;
+  color: #F2EEE2;
+}
+
+
 /* data title */
 h2{
+  font: 20px/1 monospace;
+  text-transform: capitalize;
   line-height: 1.25;
   margin-bottom: 5px;
+  background: #000;
+  padding: 5px;
+  color: white;
+  width: fit-content;
 }
 
 /* date */
@@ -68,15 +97,32 @@ h3{
 
 /* highlight data body text */
 span {
-  color: #ee4035;
-  /* margin: 15px; */
-  /* padding: 5px; */
-  /* box-shadow: 10px -10px 0px red, -10px 10px 0px red; */
+  color: #fefd00;
 }
 
 
-@media screen and (min-width: 768px){
-  #resultsContainer, .wrapper, .data {
-   padding: 4rem 3rem;
+@media screen and (min-width: 1024px){
+  h1{
+    margin-bottom: -40px;
   }
+  #searchInput{
+    margin: 0 auto -15px
+  }
+
+  .wrapper, #resultsContainer {
+    max-width: 1600px;
+    width: 100%;
+    margin: auto;
+    padding: 4rem 2.6rem;
+  }
+
+  #resultsContainer{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1rem;
+  }
+}
+
+.noresults{
+  color: #F2EEE2;
 }

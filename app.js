@@ -9,7 +9,7 @@
             displayElement.innerHTML = '';
 
             if (results.length === 0) {
-              displayElement.innerHTML = '<p>No results found.</p>';
+              displayElement.innerHTML = '<p class="noresults">No results found.</p>';
             } else {
               results.forEach(result => {
                 const { date, link, linkText, title, para, paraLink, paraLinkWord, highlightWords } = result;
