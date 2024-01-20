@@ -52,12 +52,16 @@
 
                 paraSpan = paraSpan || paraHtml;
 
-                displayElement.innerHTML += `<div class="data">
-                  ${dateHtml}
-                  <a href="${linkUrlHtml}" target="_blank">${truncatedLinkText}</a>
-                  <h2>${titleHtml}</h2>
-                  <p>${paraSpan}</p>
-                </div>`;
+                displayElement.innerHTML += `<div class="outer">
+                  <div class="content">
+                    <div class="data">
+                    ${dateHtml}
+                    <a href="${linkUrlHtml}" target="_blank">${truncatedLinkText}</a>
+                    <h2>${titleHtml}</h2>
+                    <p>${paraSpan}</p>
+                  </div>
+                </div>
+              </div>`;
               });
             }
           };

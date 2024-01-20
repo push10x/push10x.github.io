@@ -11,25 +11,34 @@ body {
   color: #1a1a1a;
 }
 a{
-  color:#2985fc;
   display: inline-block;
+  border-bottom: 3px solid #fff;
+  line-height: .8;
+  color: #5555fe11;
+  text-decoration: none;
+  transform: rotate(-3deg);
+}
+a:hover{
+  color: #5555fe;
 }
 a:not(.data p a){
   font-style: italic!important;
   color: white;
   font: 18px/1 monospace;
+  border-bottom: 0px;
+  transform: rotate(0deg);
 }
 
 h1{
   font-family: monospace;
   font-weight: 900;
   font-style: italic;
-  margin: 0px 20px -10px 0px;
+  margin: 0px -20px -10px 0px;
   line-height: 1;
   font-size: 150px;
   text-align: center;
   color: #f64056;
-  text-shadow: -1px -1px 1px #fff, 1px -1px 1px #fff, -1px 1px 1px #fff, 1px 1px 1px #fff;
+  text-shadow: -10px -1px 1px #fff, 1px -1px 1px #fff, -1px 1px 1px #fff, 1px 1px 1px #fff;
 }
 
 
@@ -61,15 +70,43 @@ h1{
   /* padding: 2.5rem 1rem; */
 }
 
-/* data div */
-.data{
-  background: rgba(255, 0, 0, .1);
+
+/* data divs */
+.outer {
+  position: relative;
+  overflow: hidden; 
   margin: 10px auto;
-  border-radius: 4px;
-  padding: 40px;
-  max-width: 350px;
+  border-radius: 0%;
+  padding: 0px;
+  max-width: 420px;
   height: fit-content;
+  line-height: 2.4rem;
   color: #F2EEE2;
+  background: #f64056;
+/* delicate decorative feature */
+  /* background-image: 
+    radial-gradient(circle, #f33 0%, transparent 1.5%),
+    linear-gradient(#f3333355 1px, transparent 1px),
+    linear-gradient(90deg, #f3333399 1px, transparent 1px);
+  background-size: 
+    20px 20px,
+    100% 20px,
+    20px 100%;
+  background-position:
+    0 0,
+    0 0,
+    0 0; */
+  /* ^^^ subtle grid overlay */
+}
+.content{
+  position: relative;
+  z-index: 10; 
+  transform: skewY(5deg); 
+  background: rgba(255, 0, 0, .3);
+}
+.data{
+  padding: 20px;
+  transform: skewY(-5deg); 
 }
 
 
@@ -97,6 +134,8 @@ h3{
 
 /* highlight data body text */
 span {
+  background: #111;
+  padding: 1px 2px;
   color: #fefd00;
 }
 
