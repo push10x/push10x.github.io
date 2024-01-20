@@ -6,7 +6,7 @@ html{
 
 body {
   overflow-x: hidden;
-  background: #f64056;
+  background: #f64056; /* match default theme bg to avoid onload flash */
   font: 22px/1.65 'Droid Serif', serif;
   color: #1a1a1a;
 }
@@ -180,4 +180,10 @@ span.highlight {
   width: 20px;
   height: 20px;
   color: black;
+}
+
+@media screen and (max-width: 768px){
+  a{
+    color: #fff;
+  }
 }

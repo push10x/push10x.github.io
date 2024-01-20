@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             paraSpan = paraSpan || paraHtml;
 
-            displayElement.innerHTML += `<div id="outer" class="outer">
+            displayElement.innerHTML += `<div class="outer">
               <div class="content">
                 <div class="data">
                 ${dateHtml}
@@ -67,10 +67,10 @@ document.addEventListener('DOMContentLoaded', function () {
         applyTheme(isDarkTheme);
       };
 
-      // Initial display of all data
+      // initial display of all data
       displayResults(data);
 
-      // Add event listener for the search input
+      // add event listener for the search input
       searchInput.addEventListener('input', () => {
         const searchTerm = searchInput.value.toLowerCase();
         const results = data.filter(item => {
@@ -92,8 +92,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 
   // 
-  // Change background page colour
-  let isDarkTheme = false;
+
+  // change background page colour
+  let isDarkTheme = true;
+  let isUserToggled = false; // variable to track manual theme toggle
+  let themeInterval; // variable to store the interval
+  
   const body = document.body;
   const themeBtn = document.getElementById('theme');
   const outerElements = document.getElementsByClassName('outer');
@@ -103,12 +107,29 @@ document.addEventListener('DOMContentLoaded', function () {
   updateThemeIcon("moon"); // show moon svg onload
 
   themeBtn.addEventListener("click", () => {
+    isUserToggled = true; // user toggled the theme manually
+
     isDarkTheme = !isDarkTheme;
     applyTheme(isDarkTheme);
-  });
 
+    // clear the interval if it was previously set
+    if (themeInterval) {
+      clearInterval(themeInterval);
+      themeInterval = undefined;
+    }
+  });
+  
+  // const greyThemeBg = "#064056";
+  // const darkThemeBlend = "rgba(160, 64, 86, .3)";
+  const redThemeBg = "#f64056";
+  const lightThemeBlend = "rgba(255, 0, 0, .3)";
+  const blueThemeBg = "#4087f6";
+  const darkThemeBlend = "rgba(0, 64, 86, .1)";
+  
+  const yellowHighlightBg = "#fefd00";
+  
   function applyTheme(isDarkTheme){
-    body.style.backgroundColor = isDarkTheme ? "#064056" : "#f64056";
+    body.style.backgroundColor = isDarkTheme ? blueThemeBg : redThemeBg;
 
     const minLength = Math.max(outerElements.length, contentElements.length, spanHighightElements.length);
 
@@ -118,16 +139,16 @@ document.addEventListener('DOMContentLoaded', function () {
       const highlight = spanHighightElements[i];
 
       if (outer) {
-        outer.style.backgroundColor = isDarkTheme ? "#064056" : "#f64056";
+        outer.style.backgroundColor = isDarkTheme ? blueThemeBg : redThemeBg;
       }
 
       if (content) {
-        content.style.backgroundColor = isDarkTheme ? "rgba(160, 64, 86, .3)" : "rgba(255, 0, 0, .3)";
+        content.style.backgroundColor = isDarkTheme ? darkThemeBlend : lightThemeBlend;
       }
 
       if (highlight) {
-        highlight.style.backgroundColor = isDarkTheme ? "#fefd00" : "#111";
-        highlight.style.color = isDarkTheme ? "#111" : "#f64056";
+        highlight.style.backgroundColor = isDarkTheme ? yellowHighlightBg : "#111";
+        highlight.style.color = isDarkTheme ? "#111" : redThemeBg;
       }
     }
 
@@ -136,6 +157,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const themeIcon = isDarkTheme ? "sun" : "moon";
     updateThemeIcon(themeIcon);
+
+    // if the theme is toggled manually, reset the interval
+    if (isUserToggled) {
+      isUserToggled = false;
+      resetThemeInterval();
+    }
   } 
 
   function updateThemeIcon(icon) {
@@ -150,5 +177,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //
 //
-//
+
+// function to reset the theme interval
+function resetThemeInterval() {
+  // clear the interval if it was previously set
+  if (themeInterval) {
+    clearInterval(themeInterval);
+    themeInterval = undefined;
+  }
+
+  // set a new 10 minutes interval if not in manual toggle mode
+  if (!isUserToggled) {
+    themeInterval = setInterval(() => {
+      isDarkTheme = !isDarkTheme;
+      applyTheme(isDarkTheme);
+    }, 600000);
+  }
+}
+
+// initialize the interval
+resetThemeInterval();
+
+// 
+// 
 });
+
