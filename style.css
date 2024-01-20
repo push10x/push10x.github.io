@@ -1,5 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
 
+html{
+  overflow-y: scroll;
+}
+
 body {
   overflow-x: hidden;
   background: #fffff9;
