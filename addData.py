@@ -6,16 +6,13 @@ filename = 'data.json'
 
 def create_data():
     while True:
+        
         date = input("Enter date (maximum 10 characters): ")
 
         if len(date) <= 10:
             break
         else:
             print("Date must be 10 characters or fewer. Please try again.")
-
-    # Check if the user wants to exit
-    if date.lower() == 'exit':
-        return
 
     link = input("Enter a link URL: ")
     linkText = input("Enter the linkText: ")
@@ -26,7 +23,7 @@ def create_data():
         if title.strip():  # Check if the title is not empty or only contains whitespace
             break
         else:
-            print("Title cannot be empty. Please try again.")
+            print("\nTitle cannot be empty. Please try again.")
 
     para = input("Enter paragraph text: ")
     paraLinkWord = input("Enter the paragraph word to add a link to: ")
@@ -66,30 +63,22 @@ def git_add_commit_push(commit_message):
     # subprocess.run(['git', 'push'])
 
 if __name__ == "__main__":
-    exit_command = 'exit'
-
-    print("Type 'exit' to quit.")
 
     while True:
         new_data = create_data()
 
-        if new_data['date'].lower() == exit_command.lower():
-            print(f"\nAll data has been saved to the json file {filename}.\n")
-
-            # Prompt user for Git operations
-            git_prompt = input("Would you like to add, commit, and push to the Git repository? (y/n): ")
-
-            if git_prompt.lower() == 'y':
-                commit_message = input("Enter a commit message: ")
-                git_add_commit_push(commit_message)
-                print("Git operations completed successfully.")
-            elif git_prompt.lower() == 'n':
-                print("Exiting the program without Git operations.")
-            else:
-                print("Invalid input. Exiting the program without Git operations.")
-
-            print("Exiting the program.")
-            break
-
-        print("Type 'exit' to quit.")
         save_to_json(new_data)
+        print(f"\nAll data has been saved to the json file {filename}.\n")
+
+        # Prompt user for Git operations
+        git_prompt = input("Would you like to add, commit, and push to the Git repository? (y/n): \n")
+
+        if git_prompt.lower() == 'y':
+            commit_message = input("Enter a commit message: ")
+            git_add_commit_push(commit_message)
+            print("\nGit operations completed successfully.")
+        elif git_prompt.lower() == 'n':
+            print("\nExiting the program without Git operations.")
+        else:
+            print("Invalid input. Exiting the program without Git operations.")
+        break
