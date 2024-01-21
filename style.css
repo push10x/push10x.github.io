@@ -29,6 +29,19 @@ a:not(.data p a){
   transform: rotate(0deg);
 }
 
+.fade-in{
+  opacity: 0;
+  animation: fade 1s ease-in forwards;
+}
+@keyframes fade {
+	0% {
+		opacity: 0%;
+	}
+	100% {
+		opacity: 100%;
+	}
+}
+
 h1{
   font-family: monospace;
   font-weight: 900;
