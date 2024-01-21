@@ -2,27 +2,24 @@
 
 html{
   overflow-y: scroll;
+  font-size: 100%;
 }
 
 body {
   overflow-x: hidden;
-  background: #f64056; /* match default theme bg to avoid onload flash */
-  font: 22px/1.65 'Droid Serif', serif;
+  background: #212124; /* match default theme bg to avoid onload flash */
   color: #1a1a1a;
 }
 a{
   display: inline-block;
   border-bottom: 3px solid #fff;
-  line-height: .8;
-  color: #5555fe11;
-  text-decoration: none;
-  transform: rotate(-3deg);
-}
-a:hover{
+  line-height: 1.3;
   color: #fff;
+  text-decoration: none;
+  /* transform: rotate(-3deg); */
+  font-style: italic!important;
 }
 a:not(.data p a){
-  font-style: italic!important;
   color: white;
   font: 18px/1 monospace;
   border-bottom: 0px;
@@ -46,12 +43,14 @@ h1{
   font-family: monospace;
   font-weight: 900;
   font-style: italic;
-  margin: 0px -20px -10px 0px;
+  margin: -20px -20px -10px 0px;
   line-height: 1;
   font-size: 150px;
   text-align: center;
-  color: #f64056;
-  text-shadow: -10px -1px 1px #fff, 1px -1px 1px #fff, -1px 1px 1px #fff, 1px 1px 1px #fff;
+
+  /* the following styles are set with js / theme toggle */
+  /* color: #212124;  */
+  /* text-shadow: -7px -1px 1px #f1f1f111, 1px -1px 1px #f1f1f111, 7px 1px 1px #f1f1f111, 1px 1px 1px #f1f1f111 */
 }
 
 
@@ -65,13 +64,14 @@ h1{
   max-width: 400px;
   width: 90%;
   margin: 0 auto;
-  padding: 10px;
+  padding: 7px;
   border: 0;
   outline: 0px;
-  font: 22px/1.65 'Droid Serif', serif;
+  font: 20px/1.55 'Droid Serif', serif;
   background: #111;
   color: white;
-  box-shadow: 0px -10px 50px #fff, 0px -0px 0px #fff, -0px 0px 0px #fff, 0px 0px 0px #fff;
+  border-radius: 4px;
+  box-shadow: 0px -0px 0px #fff, 0px -0px 0px #fff, -0px -0px 0px #fff, 0px 0px 0px #fff;
 }
 #searchInput::placeholder{
   opacity: .8;
@@ -122,19 +122,12 @@ h1{
   padding: 20px;
   transform: skewY(-5deg); 
 }
-
-
-/* data title */
-h2{
-  font: 20px/1 monospace;
-  text-transform: capitalize;
-  line-height: 1.25;
-  margin-bottom: 5px;
-  background: #000;
-  padding: 5px;
-  color: white;
-  width: fit-content;
+.date-and-link{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
 
 /* date */
 h3{
@@ -145,7 +138,23 @@ h3{
   font: 14px/1 monospace;
   margin-bottom: 8px;
 }
-
+/* data title */
+h2{
+  font: 20px/1 monospace;
+  text-transform: capitalize;
+  line-height: 1.25;
+  margin-bottom: 0px;
+  background: #000;
+  padding: 5px;
+  color: white;
+  width: fit-content;
+}
+p{
+  margin-top: 12px;
+  font-size: 1.6rem;
+  line-height: 1.65;
+  font-family: 'Droid Serif', serif;
+}
 /* highlight data body text */
 span.highlight {
   padding: 1px 2px;
@@ -182,6 +191,7 @@ span.highlight {
 
 #theme{
   width: fit-content;
+  padding: 10px;
   cursor: pointer;
 }
 .theme-sun-svg{
@@ -195,8 +205,9 @@ span.highlight {
   color: black;
 }
 
-@media screen and (max-width: 768px){
-  a{
-    color: #fff;
+@media screen and (min-width: 768px){
+  p{
+    font-size: 1.375rem;
+    line-height: 1.65;
   }
 }

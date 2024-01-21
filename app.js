@@ -55,13 +55,15 @@ document.addEventListener('DOMContentLoaded', function () {
             displayElement.innerHTML += `<div class="outer">
               <div class="content">
                 <div class="data">
-                ${dateHtml}
-                <a href="${linkUrlHtml}" target="_blank">${truncatedLinkText}</a>
-                <h2>${titleHtml}</h2>
-                <p>${paraSpan}</p>
+                  <div class="date-and-link">
+                    ${dateHtml}
+                    <a href="${linkUrlHtml}" target="_blank">${truncatedLinkText}</a>
+                  </div>
+                  <h2 class="title">${titleHtml}</h2>
+                  <p>${paraSpan}</p>
+                </div>
               </div>
-            </div>
-          </div>`;
+            </div>`;
           });
         }
         applyTheme(isDarkTheme);
@@ -94,17 +96,17 @@ document.addEventListener('DOMContentLoaded', function () {
   // 
 
   // change background page colour
-  let isDarkTheme = true;
+  let isDarkTheme = false;
   let isUserToggled = false; // variable to track manual theme toggle
   let themeInterval; // variable to store the interval
   
   const body = document.body;
   const themeBtn = document.getElementById('theme');
+  const logo = document.getElementById('logo');
   const outerElements = document.getElementsByClassName('outer');
   const contentElements = document.getElementsByClassName('content');
   const spanHighightElements = document.getElementsByClassName('highlight');
-  
-  updateThemeIcon("moon"); // show moon svg onload
+  const h2Elements = document.getElementsByClassName('title');
 
   themeBtn.addEventListener("click", () => {
     isUserToggled = true; // user toggled the theme manually
@@ -118,18 +120,18 @@ document.addEventListener('DOMContentLoaded', function () {
       themeInterval = undefined;
     }
   });
+
+
+  const darkThemeBg = "#212124";
+  const darkThemeBlend = "rgba(0, 0, 0, .1)";
   
-  // const greyThemeBg = "#064056";
-  // const darkThemeBlend = "rgba(160, 64, 86, .3)";
-  const redThemeBg = "#f64056";
-  const lightThemeBlend = "rgba(255, 0, 0, .3)";
-  const blueThemeBg = "#4087f6";
-  const darkThemeBlend = "rgba(0, 64, 86, .1)";
+  const lightThemeBg = "#4087f6";
+  const lightThemeBlend = "rgba(0, 64, 86, .2)";
   
   const yellowHighlightBg = "#fefd00";
   
   function applyTheme(isDarkTheme){
-    body.style.backgroundColor = isDarkTheme ? blueThemeBg : redThemeBg;
+    body.style.backgroundColor = isDarkTheme ? lightThemeBg : darkThemeBg;
 
     const minLength = Math.max(outerElements.length, contentElements.length, spanHighightElements.length);
 
@@ -137,25 +139,35 @@ document.addEventListener('DOMContentLoaded', function () {
       const outer = outerElements[i];
       const content = contentElements[i];
       const highlight = spanHighightElements[i];
+      const h2 = h2Elements[i];
 
       if (outer) {
-        outer.style.backgroundColor = isDarkTheme ? blueThemeBg : redThemeBg;
+        outer.style.backgroundColor = isDarkTheme ? lightThemeBg : darkThemeBg;
       }
 
       if (content) {
-        content.style.backgroundColor = isDarkTheme ? darkThemeBlend : lightThemeBlend;
+        content.style.backgroundColor = isDarkTheme ? lightThemeBlend : darkThemeBlend;
       }
 
       if (highlight) {
-        highlight.style.backgroundColor = isDarkTheme ? yellowHighlightBg : "#111";
-        highlight.style.color = isDarkTheme ? "#111" : redThemeBg;
+        highlight.style.backgroundColor = isDarkTheme ? yellowHighlightBg : "#fff";
+        highlight.style.color = isDarkTheme ? "#f33" : darkThemeBg;
+      }
+      
+      if (h2) {
+        h2.style.backgroundColor = !isDarkTheme ? yellowHighlightBg : "#000";
+        h2.style.color = !isDarkTheme ? "#000" : "#fff";
       }
     }
 
     searchInput.style.backgroundColor = isDarkTheme ? "#fff" : "#111";
     searchInput.style.color = isDarkTheme ? "#111" : "#fff";
+    searchInput.style.boxShadow = !isDarkTheme ? "0 0 0 #fff" : "0px -10px 50px #fff, 0px 0px 0px #fff, 0px 0px 0px #fff";
 
-    const themeIcon = isDarkTheme ? "sun" : "moon";
+    logo.style.color = !isDarkTheme ? "#212124" : "#f64056";
+    logo.style.textShadow = !isDarkTheme ? "-7px -1px 1px #f1f1f111, 1px -1px 1px #f1f1f111, 7px 1px 1px #f1f1f111, 1px 1px 1px #f1f1f111" : "-7px -1px 1px #f1f1f1, 1px -1px 1px #f1f1f1, 7px 1px 1px #f1f1f1, 1px 1px 1px #f1f1f1";
+
+    const themeIcon = isDarkTheme ? "moon" : "sun";
     updateThemeIcon(themeIcon);
 
     // if the theme is toggled manually, reset the interval
