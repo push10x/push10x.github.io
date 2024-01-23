@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // 
 
   // change background page colour
-  let isDarkTheme = false;
+  let isDarkTheme = true;
   let isUserToggled = false; // variable to track manual theme toggle
   let themeInterval; // variable to store the interval
   
@@ -149,15 +149,16 @@ document.addEventListener('DOMContentLoaded', function () {
         content.style.backgroundColor = isDarkTheme ? lightThemeBlend : darkThemeBlend;
       }
 
+      if (h2) {
+        h2.style.backgroundColor = !isDarkTheme ? "#111" : "#000";
+        h2.style.color = !isDarkTheme ? "#fff" : "#fff";
+      }
+
       if (highlight) {
         highlight.style.backgroundColor = isDarkTheme ? yellowHighlightBg : "#fff";
         highlight.style.color = isDarkTheme ? "#f33" : darkThemeBg;
       }
       
-      if (h2) {
-        h2.style.backgroundColor = !isDarkTheme ? yellowHighlightBg : "#000";
-        h2.style.color = !isDarkTheme ? "#000" : "#fff";
-      }
     }
 
     searchInput.style.backgroundColor = isDarkTheme ? "#fff" : "#111";
