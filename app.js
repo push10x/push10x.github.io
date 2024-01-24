@@ -121,8 +121,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-
   const darkThemeBg = "#212124";
+  // const darkThemeBg = "#2f323e";
   const darkThemeBlend = "rgba(0, 0, 0, .1)";
   
   const lightThemeBg = "#4087f6";
