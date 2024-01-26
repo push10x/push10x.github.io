@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', function () {
     .then(response => response.json())
     .then(data => {
       const displayResults = (results) => {
+        
+        // sort data in date order
+        results.sort((a, b) => (a.date > b.date) ? 1 : -1);
+
         displayElement.innerHTML = '';
 
         if (results.length === 0) {
