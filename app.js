@@ -55,12 +55,15 @@ document.addEventListener('DOMContentLoaded', function () {
             displayElement.innerHTML += `<div class="outer">
               <div class="content">
                 <div class="data">
-                  <div class="date-and-link">
+                  <div class="date">
                     ${dateHtml}
-                    <a href="${linkUrlHtml}" target="_blank">${truncatedLinkText}</a>
                   </div>
                   <h2 class="title">${titleHtml}</h2>
                   <p>${paraSpan}</p>
+
+                  <div class="link">
+                    <a href="${linkUrlHtml}" target="_blank">${truncatedLinkText}</a>
+                  </div>
                 </div>
               </div>
             </div>`;

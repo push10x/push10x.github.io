@@ -5,24 +5,50 @@ import subprocess
 
 filename = 'data.json'
 
+# Colourise command line output
+class background:
+    Black= '\033[48;5;0m'
+    Red= '\033[48;5;1m'
+    Green= '\033[48;5;2m'
+    Yellow= '\033[48;5;3m'
+    Blue= '\033[48;5;4m'
+    Magenta= '\033[48;5;5m'
+    Cyan= '\033[48;5;6m'
+    White= '\033[48;5;7m'
+
+class foreground:
+    white='\033[39m'
+    black='\033[30m'
+    yellow='\033[93m'
+    pink='\033[95m'
+    red='\033[91m'
+    green='\033[92m'
+    cyan='\033[96m'
+    purple='\033[94m'
+    lightgrey='\033[37m'
+    darkgrey='\033[90m'
+
+reset_color="\033[0m"
+
+
 def create_data():
     # To add a custom date to each post
-    # while True:
-    #   date = input("Enter date (numeric values i.e 01.01.24) or press Enter for today's date: \n")
+    while True:
+      date = input("Enter date (numeric values i.e 01.01.24) or press Enter for today's date: \n")
 
-    #   if date.strip():
-    #       if len(date) <= 10:
-    #           break
-    #       else:
-    #           print("Date must be 10 characters or fewer. Please try again.")
-    #   else:
-    #       # If the user didn't input a date, set it to today's date
-    #       date = datetime.datetime.now().strftime("%d.%m.%Y")
-    #       break
+      if date.strip():
+          if len(date) <= 10:
+              break
+          else:
+              print("Date must be 10 characters or fewer. Please try again.")
+      else:
+          # If the user didn't input a date, set it to today's date
+          date = datetime.datetime.now().strftime("%d.%m.%Y")
+          break
 
     # REPLACES THE ABOVE
     # Add todays date automatically
-    date = datetime.datetime.now().strftime("%d.%m.%Y")
+    # date = datetime.datetime.now().strftime("%d.%m.%Y")
 
     # Make the title mandatory
     while True:
@@ -39,18 +65,18 @@ def create_data():
     
     paraLinkWord = input("Enter the paragraph word to add a link to: ")
     paraLink = input(f"Enter a link URL for {paraLinkWord}: ")
-    
-    highlightWords = input("Type the words you want highlighted? (or press enter): ")
+
+    highlightWords = input(f"Type the word/s you want {background.Yellow}{foreground.black}highlighted?{reset_color}: ")
 
     new_data = {
         'title': title,
         'date': date,
         'link': link,
         'linkText': linkText,
-        'highlightWords': highlightWords,
         'para': para,
         'paraLinkWord': paraLinkWord,
-        'paraLink': paraLink
+        'paraLink': paraLink,
+        'highlightWords': highlightWords
     }
 
     return new_data

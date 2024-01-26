@@ -9,7 +9,6 @@
   --link-line-height: 1;
   --data-link-color: #fff;
   --data-link-border: #fff;
-  --results-container-card-grid: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 html{
@@ -89,11 +88,10 @@ h1{
   opacity: .8;
 }
 .wrapper, #resultsContainer {
-  box-sizing: border-box; /* Include padding and borders in the total width */
+  box-sizing: border-box;
   max-width: 600px;
   width: 100%;
   margin: auto;
-  /* padding: 2.5rem 1rem; */
 }
 
 
@@ -109,21 +107,6 @@ h1{
   line-height: 2.4rem;
   color: #F2EEE2;
   /* background: #f64056; */ /* <-- set in app.js */
-
-/* delicate decorative feature */
-  /* background-image: 
-    radial-gradient(circle, #f33 0%, transparent 1.5%),
-    linear-gradient(#f3333355 1px, transparent 1px),
-    linear-gradient(90deg, #f3333399 1px, transparent 1px);
-  background-size: 
-    20px 20px,
-    100% 20px,
-    20px 100%;
-  background-position:
-    0 0,
-    0 0,
-    0 0; */
-  /* ^^^ subtle grid overlay */
 }
 .content{
   position: relative;
@@ -135,13 +118,12 @@ h1{
   padding: 20px;
   transform: skewY(-5deg); 
 }
-.date-and-link{
+
+.date{
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
-
-
 /* date */
 h3{
   display: inline-block;
@@ -149,18 +131,20 @@ h3{
   padding: 0.25em;
   color: #123;
   font: 14px/1 monospace;
-  margin-bottom: 8px;
+  margin: 0 0 8px;
+  rotate: -2deg;
 }
 /* data title */
 h2{
+  width: fit-content;
+  margin: 8px auto 0;
+  padding: 5px;
+  text-align: center;
+  background: #000;
+  color: white;
   font: 20px/1 monospace;
   text-transform: capitalize;
   line-height: 1.25;
-  margin: 8px 0 0px;
-  background: #000;
-  padding: 5px;
-  color: white;
-  width: fit-content;
 }
 /* data paragraph and highlight span */
 p{
@@ -175,39 +159,9 @@ span.highlight {
   background: #111;
   color: #f64056;
 }
-
-@media screen and (min-width: 1600px){
-  /* desktop data paragraph and highlight span */
-  p{
-    font-size: 1.275rem;
-    line-height: 1.65;
-  }
-}
-
-@media screen and (min-width: 1024px){
-  h1{
-    margin-bottom: -10px;
-  }
-  #searchInput{
-    margin: 0 auto 20px
-  }
-
-  .wrapper, #resultsContainer {
-    max-width: 1600px;
-    width: 99%;
-    margin: auto;
-    /* padding: 2rem 2.6rem; */
-  }
-
-  #resultsContainer{
-    display: grid;
-    grid-template-columns: var(--results-container-card-grid);
-    gap: 10px;
-  }
-
-  .outer {
-    max-width: 300px;
-  }
+.link{
+  display: flex;
+  justify-content: flex-end;
 }
 
 .noresults{
@@ -229,3 +183,79 @@ span.highlight {
   height: 20px;
   color: black;
 }
+
+@media screen and (min-width: 768px){
+  #searchInput{
+    margin: 0 auto 20px
+  }
+  #resultsContainer{
+    width: fit-content;
+    column-count: 2;
+    gap: 10px;
+  }
+  .outer{
+    max-width: 300px;
+  }
+}
+
+@media screen and (min-width: 1024px){
+  h1{
+    margin-bottom: -10px;
+  }
+
+  .wrapper, #resultsContainer {
+    max-width: 1600px;
+    width: 99%;
+    margin: 0 auto;
+  }
+
+  #resultsContainer{
+    width: fit-content;
+    column-count: 3;
+    gap: 10px;
+  }
+  .outer{
+    max-width: 300px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  #resultsContainer{
+    column-count: 4;
+  }
+  .outer{
+    max-width: 300px;
+  }
+}
+
+@media screen and (min-width: 1550px) {
+  #resultsContainer{
+    column-count: 5;
+  }
+  .outer{
+    max-width: 300px;
+  }
+}
+
+/* 
+p{
+  font-size: 1.275rem;
+  line-height: 1.65;
+}
+ */
+
+/* grid pattern */
+/*   
+  background-image: 
+    radial-gradient(circle, #f33 0%, transparent 1.5%),
+    linear-gradient(#f3333355 1px, transparent 1px),
+    linear-gradient(90deg, #f3333399 1px, transparent 1px);
+  background-size: 
+    20px 20px,
+    100% 20px,
+    20px 100%;
+  background-position:
+    0 0,
+    0 0,
+    0 0;
+*/
