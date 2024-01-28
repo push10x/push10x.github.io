@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (highlight) {
         highlight.style.backgroundColor = isDarkTheme ? yellowHighlightBg : "#fff";
-        highlight.style.color = isDarkTheme ? "#f33" : darkThemeBg;
+        highlight.style.color = isDarkTheme ? "#111" : darkThemeBg;
       }
       
     }

@@ -1,6 +1,7 @@
-## MEQ
+## Pushx10
+### Internet things that 10x your mind
 
-[LIVE SITE](https://mattheweq.com/yox)
+[LIVE SITE](https://pushx10.github.io)
 
 ![ALT:preview](preview.png)
 

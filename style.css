@@ -18,6 +18,7 @@ html{
 
 body {
   overflow-x: hidden;
+  margin: 0;
   background: var(--body-bg); 
   color: var(--body-text);
 }
@@ -55,8 +56,8 @@ h1{
   font-weight: 900;
   font-style: italic;
   margin: -20px -20px -10px 0px;
-  line-height: 1;
-  font-size: 150px;
+  line-height: .4;
+  font-size: 140px;
   text-align: center;
 
   /* the following styles are set with js / theme toggle */
@@ -121,7 +122,7 @@ h1{
 
 .date{
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 /* date */
@@ -149,8 +150,8 @@ h2{
 /* data paragraph and highlight span */
 p{
   margin-top: 14px;
-  font-size: 1.25rem;
-  line-height: 1.55;
+  font-size: 1.7rem;
+  line-height: 1.6;
   font-family: 'Droid Serif', serif;
 }
 /* highlight data body text */
@@ -217,6 +218,11 @@ span.highlight {
   .outer{
     max-width: 300px;
   }
+
+  p{
+  font-size: 1.25rem;
+  line-height: 1.55;
+}
 }
 
 @media screen and (min-width: 1280px) {
@@ -236,13 +242,6 @@ span.highlight {
     max-width: 300px;
   }
 }
-
-/* 
-p{
-  font-size: 1.275rem;
-  line-height: 1.65;
-}
- */
 
 /* grid pattern */
 /*   
