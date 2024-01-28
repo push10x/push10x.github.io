@@ -1,7 +1,7 @@
-## Pushx10
+## Push10x
 ### Internet things that 10x your mind
 
-[LIVE SITE](https://pushx10.github.io)
+[LIVE SITE](https://push10x.github.io)
 
 ![ALT:preview](preview.png)
 
