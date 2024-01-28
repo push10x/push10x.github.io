@@ -3,7 +3,7 @@
 
 [LIVE SITE](https://push10x.github.io)
 
-![ALT:preview](preview.png)
+![ALT:preview](push10x.jpg)
 
 
 use `addData.py` to populate data from command line.
