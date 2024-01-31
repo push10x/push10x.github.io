@@ -1,109 +1,164 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // const searchInput = document.getElementById('searchInput');
   const displayElement = document.getElementById("resultsContainer");
-  const searchInput = document.getElementById('searchInput');
+  const numArticlesLoaded = 3;
+  let content = '';
+  let data = [];
+  let start = 0;
+  let end = numArticlesLoaded;
+  const peek = 0.5; // Observe when at least 50% of item in viewport
+  const chunkDelay = 1000; // (1 second) delay between chunks
 
-  fetch('data.json')
-    .then(response => response.json())
-    .then(data => {
-      const displayResults = (results) => {
-        
-        // sort data in date order
-        results.sort((a, b) => (a.date > b.date) ? 1 : -1);
 
-        displayElement.innerHTML = '';
 
-        if (results.length === 0) {
-          displayElement.innerHTML = '<p class="noresults">No results found.</p>';
-        } else {
-          results.forEach(result => {
-            const { date, link, linkText, title, para, paraLink, paraLinkWord, highlightWords } = result;
-            const dateHtml = date ? `<h3>${date}</h3>` : '';
-            const titleHtml = title ? title : '';
+async function fetchData() {
+  try {
+    const response = await fetch('data.json');
+    data = await response.json();
+    // sort data in date order and slice for lazy load
+    return data.sort((a, b) => (a.date > b.date) ? 1 : -1).slice(start, end);
+  } catch (error) {
+    console.error('Error fetching data:', error)
+  }
+} 
 
-            function addHttps(x) {
-              if (!x.includes("http://") && !x.includes("https://")) {
-                return `https://${x}`;
-              } else {
-                return x.replace(/^http:\/\//, 'https://');
-              }
+
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting || entry.intersectionRatio > 0) {
+      // Load the next chunk of data when the last item is partially visible
+      loadNextChunk();
+    }
+  });
+}, { threshold: peek });
+
+fetchData().then(data => {
+  buildCardElements(data);
+  
+  // After appending the initial data, find and observe the last item
+  const lastItem = document.querySelector('.item:last-child');
+  observer.observe(lastItem);
+});
+
+
+
+function loadNextChunk() {
+  start += numArticlesLoaded;
+  end += numArticlesLoaded;
+  setTimeout(() => {
+    fetchData().then(data => {
+      if (data.length > 0) {
+
+        buildCardElements(data);
+
+        // After appending the new items, find and observe the new last item
+        const lastItem = document.querySelector('.item:last-child');
+        observer.observe(lastItem);
+      } else {
+        // If there is no more data, disconnect the observer
+        observer.disconnect();
+      }
+    });
+  }, chunkDelay);
+}
+
+
+function addHttps(x) {
+  if (!x.includes("http://") && !x.includes("https://")) {
+    return `https://${x}`;
+  } else {
+    return x.replace(/^http:\/\//, 'https://');
+  }
+}
+function buildCardElements (data) {
+  displayElement.innerHTML = '';
+
+  if (data.length === 0) {
+    displayElement.innerHTML = '<p class="noresults">No results found.</p>';
+  } 
+  else {
+    data.forEach((result, index) => {
+      const { date, link, linkText, title, para, paraLink, paraLinkWord, highlightWords } = result;
+      const dateHtml = date ? `<h3>${date}</h3>` : '';
+      const titleHtml = title ? title : '';
+
+      const linkUrlHtml = link ? addHttps(link) : '';
+      const linkTextHtml = linkText ? linkText : '';
+      const truncatedLinkText = linkTextHtml.length > 20 ? linkTextHtml.slice(0, 20) + '...' : linkTextHtml;
+
+      const paraHtml = para ? para : '';
+      const paraLinkUrlHtml = paraLink ? addHttps(paraLink) : '';
+      const paraLinkWordHtml = paraLinkWord ? paraLinkWord : '';
+      const highlightWordsHtml = highlightWords ? highlightWords : '';
+
+      let paraSpan = paraHtml;
+
+      if (paraHtml && (highlightWordsHtml || paraLinkWordHtml)) {
+        const wordsArray = (highlightWordsHtml + ' ' + paraLinkWordHtml).split(/\s+/);
+        wordsArray.forEach(word => {
+          if (word && paraSpan.includes(word)) {
+            if (word === paraLinkWordHtml) {
+              const ctaHtml = ` <a href="${paraLinkUrlHtml}" target="_blank">${word}</a>`;
+              paraSpan = paraSpan.replace(new RegExp(word, 'ig'), ctaHtml);
+            } else {
+              const ctaHtml = ` <span class="highlight">${word}</span>`;
+              paraSpan = paraSpan.replace(new RegExp(word, 'ig'), ctaHtml);
             }
-
-            const linkUrlHtml = link ? addHttps(link) : '';
-            const linkTextHtml = linkText ? linkText : '';
-            const truncatedLinkText = linkTextHtml.length > 20 ? linkTextHtml.slice(0, 20) + '...' : linkTextHtml;
-
-            const paraHtml = para ? para : '';
-            const paraLinkUrlHtml = paraLink ? addHttps(paraLink) : '';
-            const paraLinkWordHtml = paraLinkWord ? paraLinkWord : '';
-            const highlightWordsHtml = highlightWords ? highlightWords : '';
-
-            let paraSpan = paraHtml;
-
-            if (paraHtml && (highlightWordsHtml || paraLinkWordHtml)) {
-              const wordsArray = (highlightWordsHtml + ' ' + paraLinkWordHtml).split(/\s+/);
-              wordsArray.forEach(word => {
-                if (word && paraSpan.includes(word)) {
-                  if (word === paraLinkWordHtml) {
-                    const ctaHtml = ` <a href="${paraLinkUrlHtml}" target="_blank">${word}</a>`;
-                    paraSpan = paraSpan.replace(new RegExp(word, 'ig'), ctaHtml);
-                  } else {
-                    const ctaHtml = ` <span class="highlight">${word}</span>`;
-                    paraSpan = paraSpan.replace(new RegExp(word, 'ig'), ctaHtml);
-                  }
-                }
-              });
-            }
-
-            paraSpan = paraSpan || paraHtml;
-
-            displayElement.innerHTML += `<div class="outer">
-              <div class="content">
-                <div class="data">
-                  <div class="date">
-                    ${dateHtml}
-                  </div>
-                  <h2 class="title">${titleHtml}</h2>
-                  <p>${paraSpan}</p>
-
-                  <div class="link">
-                    <a href="${linkUrlHtml}" target="_blank">${truncatedLinkText}</a>
-                  </div>
-                </div>
-              </div>
-            </div>`;
-          });
-        }
-        applyTheme(isDarkTheme);
-      };
-
-      // initial display of all data
-      displayResults(data);
-
-      // add event listener for the search input
-      searchInput.addEventListener('input', () => {
-        const searchTerm = searchInput.value.toLowerCase();
-        const results = data.filter(item => {
-          return (
-            item.date.toLowerCase().includes(searchTerm) ||
-            item.link.toLowerCase().includes(searchTerm) ||
-            item.linkText.toLowerCase().includes(searchTerm) ||
-            item.title.toLowerCase().includes(searchTerm) ||
-            item.para.toLowerCase().includes(searchTerm) ||
-            item.paraLink.toLowerCase().includes(searchTerm) ||
-            item.paraLinkWord.toLowerCase().includes(searchTerm) ||
-            item.highlightWords.toLowerCase().includes(searchTerm)
-          );
+          }
         });
-        displayResults(results);
-      });
-    })
-    .catch(error => console.error('Error fetching data:', error));
+      }
+      paraSpan = paraSpan || paraHtml;
 
+      // item class is used as a 'hook' but has no style attributes
+      content += `<div class="outer item">
+        <div class="content">
+          <div class="data">
+            <div class="date">
+              ${dateHtml}
+            </div>
+            <h2 class="title">${titleHtml}</h2>
+            <p>${paraSpan}</p>
+
+            <div class="link">
+              <a href="${linkUrlHtml}" target="_blank">${truncatedLinkText}</a>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    });
+  
+  displayElement.insertAdjacentHTML('beforeend', content)
+  }
+  
+  applyTheme(isDarkTheme);
+};
+
+    // searchInput.addEventListener('input', () => {
+    //   const searchTerm = searchInput.value.toLowerCase();
+    //   const results = data.filter(item => {
+    //     return (
+    //       item.date.toLowerCase().includes(searchTerm) ||
+    //       item.link.toLowerCase().includes(searchTerm) ||
+    //       item.linkText.toLowerCase().includes(searchTerm) ||
+    //       item.title.toLowerCase().includes(searchTerm) ||
+    //       item.para.toLowerCase().includes(searchTerm) ||
+    //       item.paraLink.toLowerCase().includes(searchTerm) ||
+    //       item.paraLinkWord.toLowerCase().includes(searchTerm) ||
+    //       item.highlightWords.toLowerCase().includes(searchTerm)
+    //     );
+    //   });
+    //   buildCardElements(results);
+    // });
+  
+
+  // 
+  // 
   // 
   // 
 
   // change background page colour
-  let isDarkTheme = true;
+  let isDarkTheme = false;
   let isUserToggled = false; // variable to track manual theme toggle
   let themeInterval; // variable to store the interval
   
@@ -162,15 +217,15 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       if (highlight) {
-        highlight.style.backgroundColor = isDarkTheme ? yellowHighlightBg : "#fff";
-        highlight.style.color = isDarkTheme ? "#111" : darkThemeBg;
+        highlight.style.backgroundColor = isDarkTheme ? yellowHighlightBg : "#111";
+        highlight.style.color = isDarkTheme ? "#111" : "#f64056";
       }
       
     }
 
-    searchInput.style.backgroundColor = isDarkTheme ? "#fff" : "#111";
-    searchInput.style.color = isDarkTheme ? "#111" : "#fff";
-    searchInput.style.boxShadow = !isDarkTheme ? "0 0 0 #fff" : "0px -10px 50px #fff, 0px 0px 0px #fff, 0px 0px 0px #fff";
+    // searchInput.style.backgroundColor = isDarkTheme ? "#fff" : "#111";
+    // searchInput.style.color = isDarkTheme ? "#111" : "#fff";
+    // searchInput.style.boxShadow = !isDarkTheme ? "0 0 0 #fff" : "0px -10px 50px #fff, 0px 0px 0px #fff, 0px 0px 0px #fff";
 
     logo.style.color = !isDarkTheme ? "#212124" : "#f64056";
     logo.style.textShadow = !isDarkTheme ? "-7px -1px 1px #f1f1f111, 1px -1px 1px #f1f1f111, 7px 1px 1px #f1f1f111, 1px 1px 1px #f1f1f111" : "-7px -1px 1px #f1f1f1, 1px -1px 1px #f1f1f1, 7px 1px 1px #f1f1f1, 1px 1px 1px #f1f1f1";
@@ -198,27 +253,27 @@ document.addEventListener('DOMContentLoaded', function () {
 //
 //
 
-// function to reset the theme interval
-function resetThemeInterval() {
-  // clear the interval if it was previously set
-  if (themeInterval) {
-    clearInterval(themeInterval);
-    themeInterval = undefined;
+  // function to reset the theme interval
+  function resetThemeInterval() {
+    // clear the interval if it was previously set
+    if (themeInterval) {
+      clearInterval(themeInterval);
+      themeInterval = undefined;
+    }
+
+    // set a new 10 minutes interval if not in manual toggle mode
+    if (!isUserToggled) {
+      themeInterval = setInterval(() => {
+        isDarkTheme = !isDarkTheme;
+        applyTheme(isDarkTheme);
+      }, 600000);
+    }
   }
 
-  // set a new 10 minutes interval if not in manual toggle mode
-  if (!isUserToggled) {
-    themeInterval = setInterval(() => {
-      isDarkTheme = !isDarkTheme;
-      applyTheme(isDarkTheme);
-    }, 600000);
-  }
-}
+  // initialize the interval
+  resetThemeInterval();
 
-// initialize the interval
-resetThemeInterval();
-
-// 
-// 
-});
+  // 
+  // 
+  });
 

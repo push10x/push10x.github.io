@@ -6,6 +6,6 @@
 ![ALT:preview](push10x.jpg)
 
 
-use `addData.py` to populate data from command line.
+use `addData.py` to populate data.json from command line.
 
 `addData.py` also features CI/CD git options.

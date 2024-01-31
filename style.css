@@ -43,13 +43,12 @@ a:not(.data p a){
   animation: fade 1s ease-in forwards;
 }
 @keyframes fade {
-	0% {
-		opacity: 0%;
-	}
-	100% {
-		opacity: 100%;
-	}
+  to {
+    opacity: 1;
+  }
 }
+
+
 
 h1{
   font-family: monospace;
@@ -67,11 +66,16 @@ h1{
 
 
 /* search input container */
+
+/* 
 .center{
   display: flex;
   justify-content: center;
 }
-
+/* 
+/* background: #fff; */ /* set in app.js */
+/* color: white; */ /* set in app.js */
+/* 
 #searchInput{
   max-width: 400px;
   width: 90%;
@@ -80,17 +84,20 @@ h1{
   border: 0;
   outline: 0px;
   font: 20px/1.55 'Droid Serif', serif;
-  /* background: #fff; */ /* set in app.js */
-  /* color: white; */ /* set in app.js */
   border-radius: 4px;
   box-shadow: 0px -0px 0px #fff, 0px -0px 0px #fff, -0px -0px 0px #fff, 0px 0px 0px #fff;
-}
+} 
+*/
+/* 
 #searchInput::placeholder{
   opacity: .8;
-}
+} 
+*/
+
+
 .wrapper, #resultsContainer {
   box-sizing: border-box;
-  max-width: 600px;
+  max-width: 250px;
   width: 100%;
   margin: auto;
 }
@@ -157,8 +164,8 @@ p{
 /* highlight data body text */
 span.highlight {
   padding: 1px 2px;
-  background: #111;
-  color: #f64056;
+  background: #111; /* <-- set in app.js */
+  color: #f64056; /* <-- set in app.js */
 }
 .link{
   display: flex;
@@ -186,9 +193,9 @@ span.highlight {
 }
 
 @media screen and (min-width: 768px){
-  #searchInput{
+  /* #searchInput{
     margin: 0 auto 20px
-  }
+  } */
   #resultsContainer{
     width: fit-content;
     column-count: 2;
@@ -236,7 +243,9 @@ span.highlight {
 
 @media screen and (min-width: 1550px) {
   #resultsContainer{
-    column-count: 5;
+    /* column-count: 5; */
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
   }
   .outer{
     max-width: 300px;
