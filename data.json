@@ -3,10 +3,10 @@
     "title": "this is a title",
     "date": "26.02.2024",
     "link": "author",
-    "linkText": "authorlink.com",
+    "linkText": "authorlink",
     "para": "this is a paragraph",
     "highlightWords": "this",
     "paraLinkWord": "paragraph",
-    "paraLink": "paragraphlink.com"
+    "paraLink": "paragraphlink"
   }
 ]
