@@ -6,6 +6,7 @@
 ![ALT:preview](push10x.jpg)
 
 - use `addData.py` to generate content and populate data.json from command line.
+- feel free to delete the data.json in the repo, which is included for preview example purposes.
 - the data.json file will be automatically created with the following shape:
 
 ```
