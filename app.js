@@ -15,8 +15,8 @@ async function fetchData() {
   try {
     const response = await fetch('data.json');
     data = await response.json();
-    // sort data in date order and slice for lazy load
-    return data.sort((a, b) => (a.date > b.date) ? 1 : -1).slice(start, end);
+    // sort data in recent date order and slice for lazy load
+    return data.sort((a, b) => (b.date > a.date) ? 1 : -1).slice(start, end);
   } catch (error) {
     console.error('Error fetching data:', error)
   }
