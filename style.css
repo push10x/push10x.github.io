@@ -97,7 +97,7 @@ h1{
 
 .wrapper, #resultsContainer {
   box-sizing: border-box;
-  max-width: 250px;
+  /* max-width: fit-content; */
   width: 100%;
   margin: auto;
 }
@@ -110,7 +110,7 @@ h1{
   margin: 10px auto;
   border-radius: 0%;
   padding: 0px;
-  max-width: 420px;
+  max-width: 350px;
   height: fit-content;
   line-height: 2.4rem;
   color: #F2EEE2;
@@ -157,9 +157,11 @@ h2{
 /* data paragraph and highlight span */
 p{
   margin-top: 14px;
-  font-size: 1.7rem;
-  line-height: 1.6;
   font-family: 'Droid Serif', serif;
+  font-size: 1.7rem;
+  /* font-size: 1.25rem; */
+  line-height: 1.6;
+  /* line-height: 1.55; */
 }
 /* highlight data body text */
 span.highlight {
@@ -202,7 +204,7 @@ span.highlight {
     gap: 10px;
   }
   .outer{
-    max-width: 300px;
+    max-width: 350px;
   }
 }
 
