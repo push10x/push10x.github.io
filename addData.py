@@ -63,10 +63,11 @@ def create_data():
 
     para = input("Enter paragraph text: ")
     
+    highlightWords = input(f"Type the word/s you want {background.Yellow}{foreground.black}highlighted?{reset_color}: ")
+
     paraLinkWord = input("Enter the paragraph word to add a link to: ")
     paraLink = input(f"Enter a link URL for {paraLinkWord}: ")
 
-    highlightWords = input(f"Type the word/s you want {background.Yellow}{foreground.black}highlighted?{reset_color}: ")
 
     new_data = {
         'title': title,
@@ -74,9 +75,9 @@ def create_data():
         'link': link,
         'linkText': linkText,
         'para': para,
+        'highlightWords': highlightWords,
         'paraLinkWord': paraLinkWord,
-        'paraLink': paraLink,
-        'highlightWords': highlightWords
+        'paraLink': paraLink
     }
 
     return new_data
