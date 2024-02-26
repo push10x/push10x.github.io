@@ -88,9 +88,10 @@ function buildCardElements (data) {
       const truncatedLinkText = linkTextHtml.length > 20 ? linkTextHtml.slice(0, 20) + '...' : linkTextHtml;
 
       const paraHtml = para ? para : '';
-      const paraLinkUrlHtml = paraLink ? addHttps(paraLink) : '';
-      const paraLinkWordHtml = paraLinkWord ? paraLinkWord : '';
       const highlightWordsHtml = highlightWords ? highlightWords : '';
+
+      const paraLinkWordHtml = paraLinkWord ? paraLinkWord : '';
+      const paraLinkUrlHtml = paraLink ? addHttps(paraLink) : '';
 
       let paraSpan = paraHtml;
 

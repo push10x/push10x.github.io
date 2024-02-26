@@ -68,7 +68,6 @@ def create_data():
     paraLinkWord = input("Enter the paragraph word to add a link to: ")
     paraLink = input(f"Enter a link URL for {paraLinkWord}: ")
 
-
     new_data = {
         'title': title,
         'date': date,
