@@ -14,10 +14,10 @@
   {
     "title": "this is a title",
     "date": "26.02.2024",
-    "link": "author",
-    "linkText": "authorlink.com",
+    "authorName": "author",
+    "authorLink": "authorlink.com",
     "para": "this is a paragraph",
-    "highlightWords": "this",
+    "highlightWords": "this is",
     "paraLinkWord": "paragraph",
     "paraLink": "paragraphlink.com"
   }
