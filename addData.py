@@ -58,8 +58,8 @@ def create_data():
         else:
             print("\nTitle cannot be empty. Please try again.")
 
-    link = input("Enter a link URL: ")
-    linkText = input("Enter the linkText: ")
+    authorLink = input("Enter an authorLink URL: ")
+    authorName = input("Enter the authorName: ")
 
     para = input("Enter paragraph text: ")
     
@@ -71,8 +71,8 @@ def create_data():
     new_data = {
         'title': title,
         'date': date,
-        'link': link,
-        'linkText': linkText,
+        'authorLink': authorLink,
+        'authorName': authorName,
         'para': para,
         'highlightWords': highlightWords,
         'paraLinkWord': paraLinkWord,

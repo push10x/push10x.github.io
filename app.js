@@ -79,13 +79,13 @@ function buildCardElements (data) {
   } 
   else {
     data.forEach((result, index) => {
-      const { date, link, linkText, title, para, paraLink, paraLinkWord, highlightWords } = result;
+      const { date, authorLink, authorName, title, para, paraLink, paraLinkWord, highlightWords } = result;
       const dateHtml = date ? `<h3>${date}</h3>` : '';
       const titleHtml = title ? title : '';
 
-      const linkUrlHtml = link ? addHttps(link) : '';
-      const linkTextHtml = linkText ? linkText : '';
-      const truncatedLinkText = linkTextHtml.length > 20 ? linkTextHtml.slice(0, 20) + '...' : linkTextHtml;
+      const authorLinkUrlHtml = authorLink ? addHttps(authorLink) : '';
+      const authorNameHtml = authorName ? authorName : '';
+      const truncatedLinkText = authorNameHtml.length > 20 ? authorNameHtml.slice(0, 20) + '...' : authorNameHtml;
 
       const paraHtml = para ? para : '';
       const highlightWordsHtml = highlightWords ? highlightWords : '';
@@ -122,7 +122,7 @@ function buildCardElements (data) {
             <p>${paraSpan}</p>
 
             <div class="link">
-              <a href="${linkUrlHtml}" target="_blank">${truncatedLinkText}</a>
+              <a href="${authorLinkUrlHtml}" target="_blank">${truncatedLinkText}</a>
             </div>
           </div>
         </div>
@@ -140,8 +140,8 @@ function buildCardElements (data) {
     //   const results = data.filter(item => {
     //     return (
     //       item.date.toLowerCase().includes(searchTerm) ||
-    //       item.link.toLowerCase().includes(searchTerm) ||
-    //       item.linkText.toLowerCase().includes(searchTerm) ||
+    //       item.authorLink.toLowerCase().includes(searchTerm) ||
+    //       item.authorName.toLowerCase().includes(searchTerm) ||
     //       item.title.toLowerCase().includes(searchTerm) ||
     //       item.para.toLowerCase().includes(searchTerm) ||
     //       item.paraLink.toLowerCase().includes(searchTerm) ||
