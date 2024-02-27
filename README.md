@@ -14,12 +14,12 @@
   {
     "title": "this is a title",
     "date": "26.02.2024",
-    "authorName": "author",
-    "authorLink": "authorlink",
+    "link": "author",
+    "linkText": "authorlink.com",
     "para": "this is a paragraph",
     "highlightWords": "this",
     "paraLinkWord": "paragraph",
-    "paraLink": "paragraphlink"
+    "paraLink": "paragraphlink.com"
   }
 ]
 ```

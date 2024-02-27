@@ -1,12 +1,12 @@
 [
   {
-  "title": "this is a title",
-  "date": "26.02.2024",
-  "authorName": "author",
-  "authorLink": "authorlink",
-  "para": "this is a paragraph",
-  "highlightWords": "this",
-  "paraLinkWord": "paragraph",
-  "paraLink": "paragraphlink"
+    "title": "this is a title",
+    "date": "26.02.2024",
+    "authorName": "author",
+    "authorLink": "authorlink",
+    "para": "this is a paragraph",
+    "highlightWords": "this",
+    "paraLinkWord": "paragraph",
+    "paraLink": "paragraphlink"
   }
 ]
