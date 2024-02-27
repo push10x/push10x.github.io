@@ -58,7 +58,7 @@ h1{
   line-height: .4;
   font-size: 140px;
   text-align: center;
-
+  user-select: none;
   /* the following styles are set with js / theme toggle */
   /* color: #212124;  */
   /* text-shadow: -7px -1px 1px #f1f1f111, 1px -1px 1px #f1f1f111, 7px 1px 1px #f1f1f111, 1px 1px 1px #f1f1f111 */
