@@ -1,4 +1,5 @@
-{
+[
+  {
   "title": "this is a title",
   "date": "26.02.2024",
   "authorName": "author",
@@ -7,4 +8,5 @@
   "highlightWords": "this",
   "paraLinkWord": "paragraph",
   "paraLink": "paragraphlink"
-}
+  }
+]
